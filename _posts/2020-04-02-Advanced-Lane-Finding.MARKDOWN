@@ -175,10 +175,10 @@ def color_threshold(img, colorTransform=cv2.COLOR_RGB2HLS, channelNum=2, thresh=
     b_output[(cChannel >= thresh[0]) & (cChannel <= thresh[1])] = 1
     return b_output
     
+
 ```
 
 I created a helper function that combines the output of the filtered images when techniques like those from above are applied.
-
 
 ```python
 def combineThresholds(img,binaryResultsList):
@@ -188,12 +188,14 @@ def combineThresholds(img,binaryResultsList):
     return b_combined
 ```
 
+
+I will show case these functions later. For now I'm going to show color channels.
+
 ### Color Channels
 
 Colors are a powerful way to detect lane lines. Yellow and white lines are easily contrasted against the dark pavement and below I'll show different colorspaces and we'll see which will be helpful for finding lanes.
 
-Below show the red, green, and blue channels. Then the colors converted to HSV and HLS channels. All of which you can learn more about here ..........
-
+Below I've show the red, green, and blue channels that we traditionally think of, but it turns out there are many other color spaces used in computer vision. I've included several below and I encourage you to read about them. 
 
 ```python
 #color space filtering
@@ -275,9 +277,7 @@ pltMultImg([abs_sobel_thresh(dst,'x',12,100),
            ],['Sobel X','Sobel Y','Magnitude','Direction'])
 ```
 
-
 ![png](/images/AdvancedLanes/output_26_0.png)
-
 
 From the above it is easy to see that the color filters and the sobel x and magnitude filters are the most promising. Later in the more difficult situations we'll see when each of these fail and where they can complement each other to provide a more robust line detector.
 
@@ -357,8 +357,9 @@ pltMultImg([my_perspective_transform(orig),image],['Original','Contrastive Limit
 ![png](/images/AdvancedLanes/output_31_0.png)
 
 
-Below is an interactive widget that I used to tune my filters. I spent a fair amount of time filtering and playing with this. If you want to "turn off" a filter set the low above the high value.
+Below is the code for an interactive widget that I used to tune my filters. I spent a fair amount of time filtering and playing with this. One tip: if you want to "turn off" a filter set the low above the high value.
 
+Blog Note: The widget doesn't work with the blog page. I've included the code for your reference, but I've removed the output.
 
 ```python
 from IPython.html import widgets 
@@ -388,22 +389,6 @@ interact(combined_binary_mask_interactive, ksize=(1,31,2), mag_low=(0,255), mag_
 
 ```
 
-
-![png](/images/AdvancedLanes/output_33_0.png)
-
-
-
-    interactive(children=(IntSlider(value=15, description='ksize', max=31, min=1, step=2), IntSlider(value=127, de…
-
-
-
-
-
-    <function __main__.combined_binary_mask_interactive(ksize, mag_low, mag_high, dir_low, dir_high, hls_low, hls_high, bright_low, bright_high, red_low, red_high)>
-
-
-
-
 ```python
 from IPython.html import widgets 
 from IPython.html.widgets import interact
@@ -430,20 +415,6 @@ def combined_binary_mask_interactive(ksize, lab_low, lab_high, luv_low, luv_high
 interact(combined_binary_mask_interactive, ksize=(1,31,2), lab_low=(0,255), lab_high=(0,255), luv_low=(0,255), luv_high=(0,255), bright_low=(0,255), bright_high=(0,255), red_low=(0,255), red_high=(0,255))
 
 ```
-
-
-![png](/images/AdvancedLanes/output_34_0.png)
-
-
-
-    interactive(children=(IntSlider(value=15, description='ksize', max=31, min=1, step=2), IntSlider(value=127, de…
-
-
-
-
-
-    <function __main__.combined_binary_mask_interactive(ksize, lab_low, lab_high, luv_low, luv_high, bright_low, bright_high, red_low, red_high)>
-
 
 
 ## Detect lanes from above and identify lanes
@@ -473,11 +444,6 @@ def hist(img, half=True):
 
 plt.plot(hist(warpedBinary(img)))
 ```
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x1ef80e66a90>]
 
 
 
@@ -620,56 +586,6 @@ def fit_poly(img_shape, leftx, lefty, rightx, righty):
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
     right_fitx = right_fit[0]*ploty**2 + right_fit[1]*ploty + right_fit[2]
     return left_fit, right_fit, left_fitx, right_fitx, ploty
-
-# def search_around_poly(binary_warped, left_fit, right_fit):
-#     margin = 100
-#     # Grab activated pixels
-#     nonzero = binary_warped.nonzero()
-#     nonzeroy = np.array(nonzero[0])
-#     nonzerox = np.array(nonzero[1])
-    
-#     left_lane_inds = ((nonzerox > (left_fit[0]*(nonzeroy**2) + left_fit[1]*nonzeroy + 
-#                     left_fit[2] - margin)) & (nonzerox < (left_fit[0]*(nonzeroy**2) + 
-#                     left_fit[1]*nonzeroy + left_fit[2] + margin)))
-    
-#     right_lane_inds = ((nonzerox > (right_fit[0]*(nonzeroy**2) + right_fit[1]*nonzeroy + 
-#                     right_fit[2] - margin)) & (nonzerox < (right_fit[0]*(nonzeroy**2) + 
-#                     right_fit[1]*nonzeroy + right_fit[2] + margin)))
-    
-#     # Again, extract left and right line pixel positions
-#     leftx = nonzerox[left_lane_inds]
-#     lefty = nonzeroy[left_lane_inds] 
-#     rightx = nonzerox[right_lane_inds]
-#     righty = nonzeroy[right_lane_inds]
-    
-#     # Fit new polynomials
-#     left_fit, right_fit, left_fitx, right_fitx, ploty = fit_poly(binary_warped.shape, leftx, lefty, rightx, righty)
-    
-#     ## Visualization ##
-#     # Create an image to draw on and an image to show the selection window
-#     out_img = np.dstack((binary_warped, binary_warped, binary_warped))*255
-#     window_img = np.zeros_like(out_img)
-#     # Color in left and right line pixels
-#     out_img[nonzeroy[left_lane_inds], nonzerox[left_lane_inds]] = [255, 0, 0]
-#     out_img[nonzeroy[right_lane_inds], nonzerox[right_lane_inds]] = [0, 0, 255]
-
-#     # Generate a polygon to illustrate the search window area
-#     # And recast the x and y points into usable format for cv2.fillPoly()
-#     left_line_window1 = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
-#     left_line_window2 = np.array([np.flipud(np.transpose(np.vstack([left_fitx+margin, 
-#                               ploty])))])
-#     left_line_pts = np.hstack((left_line_window1, left_line_window2))
-    
-    
-#     right_line_window1 = np.array([np.transpose(np.vstack([right_fitx-margin, ploty]))])
-#     right_line_window2 = np.array([np.flipud(np.transpose(np.vstack([right_fitx, 
-#                               ploty])))])
-#     right_line_pts = np.hstack((right_line_window1, right_line_window2))
-
-#     # Draw the lane onto the warped blank image
-#     cv2.fillPoly(window_img, np.int_([left_line_pts]), (0,255, 0))
-#     cv2.fillPoly(window_img, np.int_([right_line_pts]), (0,255, 0))
-#     return window_img
 
 ```
 
@@ -849,234 +765,11 @@ HTML("""
 ```
 
 
-
-
-
 <video width="960" height="540" controls>
-  <source src="project_video_onlyDebug.mp4">
+  <source src="/images/AdvancedLanes/project_video_onlyDebug.mp4">
 </video>
 
-
-
-
-
-```python
-white_output = 'challenge_video_LAB_LUV.mp4'
-clip1 = VideoFileClip("challenge_video.mp4")
-white_clip = clip1.fl_image(create_debug_video) #NOTE: this function expects color images!!
-%time white_clip.write_videofile(white_output, audio=False)
-```
-
-    [MoviePy] >>>> Building video challenge_video_LAB_LUV.mp4
-    [MoviePy] Writing video challenge_video_LAB_LUV.mp4
-    
-
-     27%|█████████████████████▊                                                          | 132/485 [00:09<00:25, 13.60it/s]
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <timed eval> in <module>
-    
-
-    <decorator-gen-207> in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in requires_duration(f, clip, *a, **k)
-         52         raise ValueError("Attribute 'duration' not set")
-         53     else:
-    ---> 54         return f(clip, *a, **k)
-         55 
-         56 
-    
-
-    <decorator-gen-206> in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in use_clip_fps_by_default(f, clip, *a, **k)
-        135              for (k,v) in k.items()}
-        136 
-    --> 137     return f(clip, *new_a, **new_kw)
-    
-
-    <decorator-gen-205> in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in convert_masks_to_RGB(f, clip, *a, **k)
-         20     if clip.ismask:
-         21         clip = clip.to_RGB()
-    ---> 22     return f(clip, *a, **k)
-         23 
-         24 @decorator.decorator
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\video\VideoClip.py in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-        324                            verbose=verbose, threads=threads,
-        325                            ffmpeg_params=ffmpeg_params,
-    --> 326                            progress_bar=progress_bar)
-        327 
-        328         if remove_temp and make_audio:
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\video\io\ffmpeg_writer.py in ffmpeg_write_video(clip, filename, fps, codec, bitrate, preset, withmask, write_logfile, audiofile, verbose, threads, ffmpeg_params, progress_bar)
-        216 
-        217         for t,frame in clip.iter_frames(progress_bar=progress_bar, with_times=True,
-    --> 218                                         fps=fps, dtype="uint8"):
-        219             if withmask:
-        220                 mask = (255*clip.mask.get_frame(t))
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\tqdm\_tqdm.py in __iter__(self)
-        935 """, fp_write=getattr(self.fp, 'write', sys.stderr.write))
-        936 
-    --> 937             for obj in iterable:
-        938                 yield obj
-        939                 # Update and possibly print the progressbar.
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\Clip.py in generator()
-        473         def generator():
-        474             for t in np.arange(0, self.duration, 1.0/fps):
-    --> 475                 frame = self.get_frame(t)
-        476                 if (dtype is not None) and (frame.dtype != dtype):
-        477                     frame = frame.astype(dtype)
-    
-
-    <decorator-gen-166> in get_frame(self, t)
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in wrapper(f, *a, **kw)
-         87         new_kw = {k: fun(v) if k in varnames else v
-         88                  for (k,v) in kw.items()}
-    ---> 89         return f(*new_a, **new_kw)
-         90     return decorator.decorator(wrapper)
-         91 
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\Clip.py in get_frame(self, t)
-         92                 return frame
-         93         else:
-    ---> 94             return self.make_frame(t)
-         95 
-         96     def fl(self, fun, apply_to=None, keep_duration=True):
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\Clip.py in <lambda>(t)
-        135 
-        136         #mf = copy(self.make_frame)
-    --> 137         newclip = self.set_make_frame(lambda t: fun(self.get_frame, t))
-        138 
-        139         if not keep_duration:
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\video\VideoClip.py in <lambda>(gf, t)
-        504         if apply_to is None:
-        505             apply_to = []
-    --> 506         return self.fl(lambda gf, t: image_func(gf(t)), apply_to)
-        507 
-        508     # --------------------------------------------------------------
-    
-
-    <ipython-input-34-90f9e849b945> in create_debug_video(img)
-          4     xm_per_pix = 3.7/700
-          5     ym_per_pix = 30/720
-    ----> 6     left_fit, right_fit, left_fitx, right_fitx, ploty = fit_poly(img.shape, leftx, lefty, rightx, righty)
-          7     left_curverad, right_curverad = measure_curvature_real(left_fit,right_fit,img.shape[0],xm_per_pix,ym_per_pix)
-          8 
-    
-
-    <ipython-input-27-955a96b05d3a> in fit_poly(img_shape, leftx, lefty, rightx, righty)
-          1 def fit_poly(img_shape, leftx, lefty, rightx, righty):
-          2      ### TO-DO: Fit a second order polynomial to each with np.polyfit() ###
-    ----> 3     left_fit = np.polyfit(lefty, leftx, 2)
-          4     right_fit = np.polyfit(righty, rightx, 2)
-          5     # Generate x and y values for plotting
-    
-
-    ~\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\lib\polynomial.py in polyfit(x, y, deg, rcond, full, w, cov)
-        596         raise TypeError("expected 1D vector for x")
-        597     if x.size == 0:
-    --> 598         raise TypeError("expected non-empty vector for x")
-        599     if y.ndim < 1 or y.ndim > 2:
-        600         raise TypeError("expected 1D or 2D array for y")
-    
-
-    TypeError: expected non-empty vector for x
-
-
-
-```python
-HTML("""
-<video width="960" height="540" controls>
-  <source src="{0}">
-</video>
-""".format('challenge_video_LAB_LUV.mp4'))
-```
-
-
-
-
-
-<video width="960" height="540" controls>
-  <source src="challenge_video_LAB_LUV.mp4">
-</video>
-
-
-
-
-
-```python
-# white_output = 'harder_challenge_video_withBackup.mp4'
-# clip1 = VideoFileClip("harder_challenge_video.mp4")
-# white_clip = clip1.fl_image(new_pipeline) #NOTE: this function expects color images!!
-# %time white_clip.write_videofile(white_output, audio=False)
-```
-
-
-```python
-# HTML("""
-# <video width="960" height="540" controls>
-#   <source src="{0}">
-# </video>
-# """.format('harder_challenge_video_withBackup.mp4'))
-```
 
 ## Conclusion
-The pipeline above does a good job of following the road when the lines are well marked and the road is darker. I would need to tune the values more and potentially use other feature detectors to improve the pipeline for the challenge videos. Also in the harder challenge video it shows that my current code focuses too far out and looks only straight ahead for lane lines. In order to address this I could change the perspective transform to shift as the road turns, but I'm hesitant. I think shortening the length in which it looks ahead could help.
+The pipeline above does a good job of following the road when the lines are well marked and the road is darker. I would need to tune the values more and potentially use other feature detectors to improve the pipeline for more challenging sections of road. Also in harder videos I've tested my current code focuses too far out and looks only straight ahead for lane lines. When the road curves sharply it doesn't work well at all. In order to address this I could change the perspective transform to shift as the road turns, but I'm hesitant. I think shortening the length in which it looks ahead could help. I'll leave that for a later date or for the reader to try.
 
-
-```python
-# def region_of_interest(img, vertices):
-#     """
-#     Applies an image mask.
-    
-#     Only keeps the region of the image defined by the polygon
-#     formed from `vertices`. The rest of the image is set to black.
-#     `vertices` should be a numpy array of integer points.
-#     """
-#     #defining a blank mask to start with
-#     mask = np.zeros_like(img)   
-    
-#     #defining a 3 channel or 1 channel color to fill the mask with depending on the input image
-#     if len(img.shape) > 2:
-#         channel_count = img.shape[2]  # i.e. 3 or 4 depending on your image
-#         ignore_mask_color = (255,) * channel_count
-#     else:
-#         ignore_mask_color = 255
-        
-#     #filling pixels inside the polygon defined by "vertices" with the fill color    
-#     cv2.fillPoly(mask, vertices, ignore_mask_color)
-    
-#     #returning the image only where mask pixels are nonzero
-#     masked_image = cv2.bitwise_and(img, mask)
-#     return masked_image
-```
-
-
-```python
-# from PIL import Image
-# im = Image.open('treeShadow.png')
-# im.save('treeShadow.jpg')
-```

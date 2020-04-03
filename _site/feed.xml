@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-02T21:34:59-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Chris Durrans</title><subtitle>I currently work as a Data Scientist and I love all things data.  I'm particularly interested in natural language processing,  reinforcement learning, computer vision, and robotics.</subtitle><entry><title type="html">Advanced Lane Finding</title><link href="http://localhost:4000/jekyll/update/2020/04/02/Advanced-Lane-Finding.html" rel="alternate" type="text/html" title="Advanced Lane Finding" /><published>2020-04-02T20:11:46-06:00</published><updated>2020-04-02T20:11:46-06:00</updated><id>http://localhost:4000/jekyll/update/2020/04/02/Advanced-Lane-Finding</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/02/Advanced-Lane-Finding.html">&lt;p&gt;This project is part of Udacity’s self driving car program and the goal is to find lanes on the road and determine car’s position in the lane. For this project I’ll only analyze data coming from one camera centered on the dashboard.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-03T07:36:07-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Chris Durrans</title><subtitle>I currently work as a Data Scientist and I love all things data.  I'm particularly interested in natural language processing,  reinforcement learning, computer vision, and robotics.</subtitle><entry><title type="html">Advanced Lane Finding</title><link href="http://localhost:4000/jekyll/update/2020/04/02/Advanced-Lane-Finding.html" rel="alternate" type="text/html" title="Advanced Lane Finding" /><published>2020-04-02T20:11:46-06:00</published><updated>2020-04-02T20:11:46-06:00</updated><id>http://localhost:4000/jekyll/update/2020/04/02/Advanced-Lane-Finding</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/02/Advanced-Lane-Finding.html">&lt;p&gt;This project is part of Udacity’s self driving car program and the goal is to find lanes on the road and determine car’s position in the lane. For this project I’ll only analyze data coming from one camera centered on the dashboard.&lt;/p&gt;
 
 &lt;!-- [image1]: ./test1.jpg &quot;Example Image&quot;
 ![alt text][image1] --&gt;
@@ -150,6 +150,7 @@
     &lt;span class=&quot;n&quot;&gt;b_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cChannel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thresh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cChannel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thresh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b_output&lt;/span&gt;
     
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I created a helper function that combines the output of the filtered images when techniques like those from above are applied.&lt;/p&gt;
@@ -161,11 +162,13 @@
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b_combined&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;I will show case these functions later. For now I’m going to show color channels.&lt;/p&gt;
+
 &lt;h3 id=&quot;color-channels&quot;&gt;Color Channels&lt;/h3&gt;
 
 &lt;p&gt;Colors are a powerful way to detect lane lines. Yellow and white lines are easily contrasted against the dark pavement and below I’ll show different colorspaces and we’ll see which will be helpful for finding lanes.&lt;/p&gt;
 
-&lt;p&gt;Below show the red, green, and blue channels. Then the colors converted to HSV and HLS channels. All of which you can learn more about here ……….&lt;/p&gt;
+&lt;p&gt;Below I’ve show the red, green, and blue channels that we traditionally think of, but it turns out there are many other color spaces used in computer vision. I’ve included several below and I encourage you to read about them.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#color space filtering
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mpimg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'test_images/test2.jpg'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -294,7 +297,9 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/AdvancedLanes/output_31_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Below is an interactive widget that I used to tune my filters. I spent a fair amount of time filtering and playing with this. If you want to “turn off” a filter set the low above the high value.&lt;/p&gt;
+&lt;p&gt;Below is the code for an interactive widget that I used to tune my filters. I spent a fair amount of time filtering and playing with this. One tip: if you want to “turn off” a filter set the low above the high value.&lt;/p&gt;
+
+&lt;p&gt;Blog Note: The widget doesn’t work with the blog page. I’ve included the code for your reference, but I’ve removed the output.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.html&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;widgets&lt;/span&gt; 
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.html.widgets&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interact&lt;/span&gt;
@@ -323,17 +328,6 @@
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/AdvancedLanes/output_33_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;interactive(children=(IntSlider(value=15, description='ksize', max=31, min=1, step=2), IntSlider(value=127, de…
-
-
-
-
-
-&amp;lt;function __main__.combined_binary_mask_interactive(ksize, mag_low, mag_high, dir_low, dir_high, hls_low, hls_high, bright_low, bright_high, red_low, red_high)&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.html&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;widgets&lt;/span&gt; 
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.html.widgets&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interact&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;IPython.display&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;
@@ -360,17 +354,6 @@
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/AdvancedLanes/output_34_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;interactive(children=(IntSlider(value=15, description='ksize', max=31, min=1, step=2), IntSlider(value=127, de…
-
-
-
-
-
-&amp;lt;function __main__.combined_binary_mask_interactive(ksize, lab_low, lab_high, luv_low, luv_high, bright_low, bright_high, red_low, red_high)&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
 &lt;h2 id=&quot;detect-lanes-from-above-and-identify-lanes&quot;&gt;Detect lanes from above and identify lanes&lt;/h2&gt;
 
 &lt;p&gt;Now we’ll combine the above pieces to detect the lanes and find their curvature. First we’ll correct for distortion, find the lanes, and then plot the histogram of discovered points in the image. Then we’ll run a windowing algorithm that will search segment by segment for where the lane is going from one segment to the next. Then we’ll fit a line to the points and measure its curvature. With the curvature we can determine which direction we are headed and we’ll use that along with points immediately below the camera to determine if we are centered in the lane.&lt;/p&gt;
@@ -395,9 +378,6 @@
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;histogram&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warpedBinary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[&amp;lt;matplotlib.lines.Line2D at 0x1ef80e66a90&amp;gt;]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/AdvancedLanes/output_36_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
@@ -532,56 +512,6 @@
     &lt;span class=&quot;n&quot;&gt;right_fitx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ploty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ploty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_fitx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right_fitx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ploty&lt;/span&gt;
 
-&lt;span class=&quot;c1&quot;&gt;# def search_around_poly(binary_warped, left_fit, right_fit):
-#     margin = 100
-#     # Grab activated pixels
-#     nonzero = binary_warped.nonzero()
-#     nonzeroy = np.array(nonzero[0])
-#     nonzerox = np.array(nonzero[1])
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     left_lane_inds = ((nonzerox &amp;gt; (left_fit[0]*(nonzeroy**2) + left_fit[1]*nonzeroy + 
-#                     left_fit[2] - margin)) &amp;amp; (nonzerox &amp;lt; (left_fit[0]*(nonzeroy**2) + 
-#                     left_fit[1]*nonzeroy + left_fit[2] + margin)))
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     right_lane_inds = ((nonzerox &amp;gt; (right_fit[0]*(nonzeroy**2) + right_fit[1]*nonzeroy + 
-#                     right_fit[2] - margin)) &amp;amp; (nonzerox &amp;lt; (right_fit[0]*(nonzeroy**2) + 
-#                     right_fit[1]*nonzeroy + right_fit[2] + margin)))
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     # Again, extract left and right line pixel positions
-#     leftx = nonzerox[left_lane_inds]
-#     lefty = nonzeroy[left_lane_inds] 
-#     rightx = nonzerox[right_lane_inds]
-#     righty = nonzeroy[right_lane_inds]
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     # Fit new polynomials
-#     left_fit, right_fit, left_fitx, right_fitx, ploty = fit_poly(binary_warped.shape, leftx, lefty, rightx, righty)
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     ## Visualization ##
-#     # Create an image to draw on and an image to show the selection window
-#     out_img = np.dstack((binary_warped, binary_warped, binary_warped))*255
-#     window_img = np.zeros_like(out_img)
-#     # Color in left and right line pixels
-#     out_img[nonzeroy[left_lane_inds], nonzerox[left_lane_inds]] = [255, 0, 0]
-#     out_img[nonzeroy[right_lane_inds], nonzerox[right_lane_inds]] = [0, 0, 255]
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#     # Generate a polygon to illustrate the search window area
-#     # And recast the x and y points into usable format for cv2.fillPoly()
-#     left_line_window1 = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
-#     left_line_window2 = np.array([np.flipud(np.transpose(np.vstack([left_fitx+margin, 
-#                               ploty])))])
-#     left_line_pts = np.hstack((left_line_window1, left_line_window2))
-&lt;/span&gt;    
-    
-&lt;span class=&quot;c1&quot;&gt;#     right_line_window1 = np.array([np.transpose(np.vstack([right_fitx-margin, ploty]))])
-#     right_line_window2 = np.array([np.flipud(np.transpose(np.vstack([right_fitx, 
-#                               ploty])))])
-#     right_line_pts = np.hstack((right_line_window1, right_line_window2))
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#     # Draw the lane onto the warped blank image
-#     cv2.fillPoly(window_img, np.int_([left_line_pts]), (0,255, 0))
-#     cv2.fillPoly(window_img, np.int_([right_line_pts]), (0,255, 0))
-#     return window_img
-&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;measure_curvature_real&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right_fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xm_per_pix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;720&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ym_per_pix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;720&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -740,208 +670,8 @@ Wall time: 1min 32s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;video width=&quot;960&quot; height=&quot;540&quot; controls=&quot;&quot;&gt;
-  &lt;source src=&quot;project_video_onlyDebug.mp4&quot; /&gt;
+  &lt;source src=&quot;/images/AdvancedLanes/project_video_onlyDebug.mp4&quot; /&gt;
 &lt;/video&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;white_output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'challenge_video_LAB_LUV.mp4'&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;clip1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VideoFileClip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;challenge_video.mp4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;white_clip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clip1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fl_image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create_debug_video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#NOTE: this function expects color images!!
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;white_clip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write_videofile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;white_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;audio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[MoviePy] &amp;gt;&amp;gt;&amp;gt;&amp;gt; Building video challenge_video_LAB_LUV.mp4
-[MoviePy] Writing video challenge_video_LAB_LUV.mp4
-
-
- 27%|█████████████████████▊                                                          | 132/485 [00:09&amp;lt;00:25, 13.60it/s]
-
-
----------------------------------------------------------------------------
-
-TypeError                                 Traceback (most recent call last)
-
-&amp;lt;timed eval&amp;gt; in &amp;lt;module&amp;gt;
-
-
-&amp;lt;decorator-gen-207&amp;gt; in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in requires_duration(f, clip, *a, **k)
-     52         raise ValueError(&quot;Attribute 'duration' not set&quot;)
-     53     else:
----&amp;gt; 54         return f(clip, *a, **k)
-     55 
-     56 
-
-
-&amp;lt;decorator-gen-206&amp;gt; in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in use_clip_fps_by_default(f, clip, *a, **k)
-    135              for (k,v) in k.items()}
-    136 
---&amp;gt; 137     return f(clip, *new_a, **new_kw)
-
-
-&amp;lt;decorator-gen-205&amp;gt; in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in convert_masks_to_RGB(f, clip, *a, **k)
-     20     if clip.ismask:
-     21         clip = clip.to_RGB()
----&amp;gt; 22     return f(clip, *a, **k)
-     23 
-     24 @decorator.decorator
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\video\VideoClip.py in write_videofile(self, filename, fps, codec, bitrate, audio, audio_fps, preset, audio_nbytes, audio_codec, audio_bitrate, audio_bufsize, temp_audiofile, rewrite_audio, remove_temp, write_logfile, verbose, threads, ffmpeg_params, progress_bar)
-    324                            verbose=verbose, threads=threads,
-    325                            ffmpeg_params=ffmpeg_params,
---&amp;gt; 326                            progress_bar=progress_bar)
-    327 
-    328         if remove_temp and make_audio:
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\video\io\ffmpeg_writer.py in ffmpeg_write_video(clip, filename, fps, codec, bitrate, preset, withmask, write_logfile, audiofile, verbose, threads, ffmpeg_params, progress_bar)
-    216 
-    217         for t,frame in clip.iter_frames(progress_bar=progress_bar, with_times=True,
---&amp;gt; 218                                         fps=fps, dtype=&quot;uint8&quot;):
-    219             if withmask:
-    220                 mask = (255*clip.mask.get_frame(t))
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\tqdm\_tqdm.py in __iter__(self)
-    935 &quot;&quot;&quot;, fp_write=getattr(self.fp, 'write', sys.stderr.write))
-    936 
---&amp;gt; 937             for obj in iterable:
-    938                 yield obj
-    939                 # Update and possibly print the progressbar.
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\Clip.py in generator()
-    473         def generator():
-    474             for t in np.arange(0, self.duration, 1.0/fps):
---&amp;gt; 475                 frame = self.get_frame(t)
-    476                 if (dtype is not None) and (frame.dtype != dtype):
-    477                     frame = frame.astype(dtype)
-
-
-&amp;lt;decorator-gen-166&amp;gt; in get_frame(self, t)
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\decorators.py in wrapper(f, *a, **kw)
-     87         new_kw = {k: fun(v) if k in varnames else v
-     88                  for (k,v) in kw.items()}
----&amp;gt; 89         return f(*new_a, **new_kw)
-     90     return decorator.decorator(wrapper)
-     91 
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\Clip.py in get_frame(self, t)
-     92                 return frame
-     93         else:
----&amp;gt; 94             return self.make_frame(t)
-     95 
-     96     def fl(self, fun, apply_to=None, keep_duration=True):
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\Clip.py in &amp;lt;lambda&amp;gt;(t)
-    135 
-    136         #mf = copy(self.make_frame)
---&amp;gt; 137         newclip = self.set_make_frame(lambda t: fun(self.get_frame, t))
-    138 
-    139         if not keep_duration:
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\moviepy\video\VideoClip.py in &amp;lt;lambda&amp;gt;(gf, t)
-    504         if apply_to is None:
-    505             apply_to = []
---&amp;gt; 506         return self.fl(lambda gf, t: image_func(gf(t)), apply_to)
-    507 
-    508     # --------------------------------------------------------------
-
-
-&amp;lt;ipython-input-34-90f9e849b945&amp;gt; in create_debug_video(img)
-      4     xm_per_pix = 3.7/700
-      5     ym_per_pix = 30/720
-----&amp;gt; 6     left_fit, right_fit, left_fitx, right_fitx, ploty = fit_poly(img.shape, leftx, lefty, rightx, righty)
-      7     left_curverad, right_curverad = measure_curvature_real(left_fit,right_fit,img.shape[0],xm_per_pix,ym_per_pix)
-      8 
-
-
-&amp;lt;ipython-input-27-955a96b05d3a&amp;gt; in fit_poly(img_shape, leftx, lefty, rightx, righty)
-      1 def fit_poly(img_shape, leftx, lefty, rightx, righty):
-      2      ### TO-DO: Fit a second order polynomial to each with np.polyfit() ###
-----&amp;gt; 3     left_fit = np.polyfit(lefty, leftx, 2)
-      4     right_fit = np.polyfit(righty, rightx, 2)
-      5     # Generate x and y values for plotting
-
-
-~\AppData\Local\Continuum\anaconda3\lib\site-packages\numpy\lib\polynomial.py in polyfit(x, y, deg, rcond, full, w, cov)
-    596         raise TypeError(&quot;expected 1D vector for x&quot;)
-    597     if x.size == 0:
---&amp;gt; 598         raise TypeError(&quot;expected non-empty vector for x&quot;)
-    599     if y.ndim &amp;lt; 1 or y.ndim &amp;gt; 2:
-    600         raise TypeError(&quot;expected 1D or 2D array for y&quot;)
-
-
-TypeError: expected non-empty vector for x
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;HTML&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
-&amp;lt;video width=&quot;960&quot; height=&quot;540&quot; controls&amp;gt;
-  &amp;lt;source src=&quot;{0}&quot;&amp;gt;
-&amp;lt;/video&amp;gt;
-&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'challenge_video_LAB_LUV.mp4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;video width=&quot;960&quot; height=&quot;540&quot; controls=&quot;&quot;&gt;
-  &lt;source src=&quot;challenge_video_LAB_LUV.mp4&quot; /&gt;
-&lt;/video&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# white_output = 'harder_challenge_video_withBackup.mp4'
-# clip1 = VideoFileClip(&quot;harder_challenge_video.mp4&quot;)
-# white_clip = clip1.fl_image(new_pipeline) #NOTE: this function expects color images!!
-# %time white_clip.write_videofile(white_output, audio=False)
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# HTML(&quot;&quot;&quot;
-# &amp;lt;video width=&quot;960&quot; height=&quot;540&quot; controls&amp;gt;
-#   &amp;lt;source src=&quot;{0}&quot;&amp;gt;
-# &amp;lt;/video&amp;gt;
-# &quot;&quot;&quot;.format('harder_challenge_video_withBackup.mp4'))
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;The pipeline above does a good job of following the road when the lines are well marked and the road is darker. I would need to tune the values more and potentially use other feature detectors to improve the pipeline for the challenge videos. Also in the harder challenge video it shows that my current code focuses too far out and looks only straight ahead for lane lines. In order to address this I could change the perspective transform to shift as the road turns, but I’m hesitant. I think shortening the length in which it looks ahead could help.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# def region_of_interest(img, vertices):
-#     &quot;&quot;&quot;
-#     Applies an image mask.
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     Only keeps the region of the image defined by the polygon
-#     formed from `vertices`. The rest of the image is set to black.
-#     `vertices` should be a numpy array of integer points.
-#     &quot;&quot;&quot;
-#     #defining a blank mask to start with
-#     mask = np.zeros_like(img)   
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     #defining a 3 channel or 1 channel color to fill the mask with depending on the input image
-#     if len(img.shape) &amp;gt; 2:
-#         channel_count = img.shape[2]  # i.e. 3 or 4 depending on your image
-#         ignore_mask_color = (255,) * channel_count
-#     else:
-#         ignore_mask_color = 255
-&lt;/span&gt;        
-&lt;span class=&quot;c1&quot;&gt;#     #filling pixels inside the polygon defined by &quot;vertices&quot; with the fill color    
-#     cv2.fillPoly(mask, vertices, ignore_mask_color)
-&lt;/span&gt;    
-&lt;span class=&quot;c1&quot;&gt;#     #returning the image only where mask pixels are nonzero
-#     masked_image = cv2.bitwise_and(img, mask)
-#     return masked_image
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# from PIL import Image
-# im = Image.open('treeShadow.png')
-# im.save('treeShadow.jpg')
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">This project is part of Udacity’s self driving car program and the goal is to find lanes on the road and determine car’s position in the lane. For this project I’ll only analyze data coming from one camera centered on the dashboard.</summary></entry></feed>
+&lt;p&gt;The pipeline above does a good job of following the road when the lines are well marked and the road is darker. I would need to tune the values more and potentially use other feature detectors to improve the pipeline for more challenging sections of road. Also in harder videos I’ve tested my current code focuses too far out and looks only straight ahead for lane lines. When the road curves sharply it doesn’t work well at all. In order to address this I could change the perspective transform to shift as the road turns, but I’m hesitant. I think shortening the length in which it looks ahead could help. I’ll leave that for a later date or for the reader to try.&lt;/p&gt;</content><author><name></name></author><summary type="html">This project is part of Udacity’s self driving car program and the goal is to find lanes on the road and determine car’s position in the lane. For this project I’ll only analyze data coming from one camera centered on the dashboard.</summary></entry></feed>
