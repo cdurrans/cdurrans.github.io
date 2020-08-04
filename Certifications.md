@@ -19,7 +19,7 @@ Autonomous Flight             |  Deep Reinforcement Learning
 ![Flying Car](/images/Certifications/flying car.PNG)  |  ![Deep Reinforcement](/images/Certifications/deep reinforcement.PNG)
 Confirm at [conﬁrm.udacity.com/DKSNDLQW](https://conﬁrm.udacity.com/DKSNDLQW) | Confirm at [conﬁrm.udacity.com/XT7TGDWU](https://conﬁrm.udacity.com/XT7TGDWU)
 <b>Self Driving Car</b>             |  <b>Intro to Self-Driving Car</b>
-![Self-Driving Car](/images/Certifications/self driving.PNG)  |  ![Intro](/images/Certifications/intro_self driving.PNG)
+![Self-Driving Car](/images/Certifications/self driving.PNG)  |  ![Intro](/images/Certifications/intro self driving.PNG)
 Confirm at [conﬁrm.udacity.com/LEDGCEMG](https://conﬁrm.udacity.com/LEDGCEMG) | Confirm at [conﬁrm.udacity.com/GN5M3VDQ](https://conﬁrm.udacity.com/GN5M3VDQ)
 <b>Deep Learning</b> |
 ![Deep Learning](/images/Certifications/deepLearning.PNG)  |  
