@@ -1,71 +1,24 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Chris Durrans | I currently work as a Data Scientist and I love all things data. I'm particularly interested in natural language processing, reinforcement learning, computer vision, and robotics.</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Chris Durrans" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="I currently work as a Data Scientist and I love all things data. I'm particularly interested in natural language processing, reinforcement learning, computer vision, and robotics." />
-<meta property="og:description" content="I currently work as a Data Scientist and I love all things data. I'm particularly interested in natural language processing, reinforcement learning, computer vision, and robotics." />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
-<meta property="og:site_name" content="Chris Durrans" />
-<script type="application/ld+json">
-{"@type":"WebSite","url":"http://localhost:4000/","headline":"Chris Durrans","name":"Chris Durrans","description":"I currently work as a Data Scientist and I love all things data. I'm particularly interested in natural language processing, reinforcement learning, computer vision, and robotics.","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<script
-    src="https://code.jquery.com/jquery-3.3.1.js"
-></script>
-</script>
-<script> 
-$(function(){
-  $("#headerTest").load("header.html"); 
-  $("#footerTest").load("footer.html"); 
-  });
-</script> 
+---
+layout: page
+---
 
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Chris Durrans" /></head>
-<body>
+<div class="home">
+  <h2 class="post-list-heading">Welcome!</h2>
+  <p>I'm assembling my website so there is much more to come, but please feel free to see a few of my projects and certifications!</p>
 
-  <link rel="text" href="/header.html">
-  <div id="headerTest"></div>
+<h2 class="post-list-heading">Posts</h2>
+<ul class="post-list">
 
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <div class="home">
-            <h2 class="post-list-heading">Website Under Construction.</h2>
-            <p>To anyone who stumbles across this page, please forgive the uncompleted site.</p>
+<ul>
+{% for post in site.posts %}
+<li>
+  <a href="{{ post.url }}">{{ post.title }}</a>
+</li>
+{% endfor %}
+</ul>
 
-          <h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list">
-      
-    <!-- <li>
-        <span class="post-meta">Apr 2, 2020</span>
-      <h3>
-        <a class="post-link" href="/jekyll/update/2020/04/02/Advanced-Lane-Finding.html">
-            Advanced Lane Finding
-        </a>
-      </h3>
-    </li>
-         -->
-    <ul>
-        {% for post in site.posts %}
-          <li>
-            <a href="{{ post.url }}">{{ post.title }}</a>
-          </li>
-        {% endfor %}
-      </ul>
+</ul>
 
 
-      
-      </ul>
 </div>
 
-      </div>
-    </main>
-    <div id='footerTest'></div>
-</body>
-
-</html>
