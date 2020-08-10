@@ -23,7 +23,7 @@ email: durranschristopher@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Data Scientist, life long learner, and want to be roboticist. I'm particularly interested reinforcement learning and control.
 baseurl: "https://cdurrans.github.io/" # the subpath of your site, e.g. /blog
-url: "https://cdurrans.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 github_username:  cdurrans
 
