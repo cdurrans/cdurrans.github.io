@@ -1,5 +1,5 @@
 ---
-layout: post
+# layout: post
 title:  "Advanced Lane Finding"
 date:   2020-04-02 20:11:46 -0600
 categories: jekyll update
