@@ -766,7 +766,7 @@ HTML("""
 
 
 <video width="960" height="540" controls>
-  <source src="/images/AdvancedLanes/project_video_onlyDebug.mp4">
+  <source src="https://media.githubusercontent.com/media/cdurrans/cdurrans.github.io/master/images/AdvancedLanes/project_video_onlyDebug.mp4">
 </video>
 
 

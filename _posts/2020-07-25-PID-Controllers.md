@@ -4,17 +4,17 @@
 
 #### In this blog post, I want to share some of my experiences with Controllers and their applications. My first introduction to PID controllers was in Udacity's Self Driving Car Nanodegree where we learned to control the car's steering wheel and speed.
 
-![png](/images/PID vs Behavioral Cloning/simulator.png)
+![png](/images/PID vs Behavioral Cloning/simulator.PNG)
 
 
 [//]: # (Image References)
 
-[image1]: ./images/PID/steadyPatternImprovement.png "Steady Progress"
+<!-- [image1]: ./images/PID/steadyPatternImprovement.png "Steady Progress"
 [image_p]: ./images/PID/p_controller_tau_0.1.png "P controller example"
 [image_pm]: ./images/PID/p_controller_multi_tau.png "P controller multiple tau"
 [image_p_pd]: ./images/PID/P_PD_example.png "P and PD controller"
 [image_compare]: ./images/PID/Controller_Examples_with_bias_example.png "Controller comparison"
-[video1]: ./images/PID/project_video.mp4 "Video"
+[video1]: ./images/PID/project_video.mp4 "Video" -->
 
 ### Controllers and the Control Loop
 
@@ -26,11 +26,11 @@ A PID controller is the most common way to design a controller, because it is ef
 
 Continuing with the car's speed, the proportional part changes the speed in proportion to the difference between the goal and current speed. So when the car is going 50 mph slower than the goal speed the car will accelerate faster than it would if it was going 5 mph under. This makes intuitive sense, and one would be tempted to call it good enough, but the car will reach a point where it oscilates around the goal. See the image below.
 
-![png](/images/PID/p_controller_tau_0.1.png)
+![png](/images/PID/p_controller_tau_0.1.PNG)
 
 Image shows difference from goal. In the case of speed this 1 +/- mph difference around goal doesn't seem like a big deal, but minimizing this oscilation can be very important in other applications. One way to minimize it is with tuning because the distance from the goal or error is multiplied by a supplied value called tau. See in the above image how tau was set to 0.1? Below are some examples of how adjusting tau changes the behavior.
 
-![png](/images/PID/p_controller_multi_tau.png)
+![png](/images/PID/p_controller_multi_tau.PNG)
 
 As you can see, as tau gets smaller the controller adjusts its speed much more slowly which causes the longer oscilations.
 
@@ -46,7 +46,7 @@ totalError = (-Kp * p_error);
 
 To further improve the controller we will implement the other parts of the PID controller. We will skip the Integral portion for now, so the derivative part of the equation takes the derivative of the car's speed and subtracts it from the proportional value. This works to smooth the oscillations until the point where the car aligns itself with the goal.
 
-![png](/images/PID/P_PD_example.png)
+![png](/images/PID/P_PD_example.PNG)
 
 ```c++
 // PD controller
@@ -63,7 +63,7 @@ In a perfect world we would be done, but real world systems have bias or errors.
 
 The integral part of the controller takes all of the errors over each time step and sums them up to calculate the integral of the function. So as the device has mistakes in its measurements the accumulating error will cause the controller to correct itself. Below we have a comparison of a PD controller and a PID controller. When the controller has systematic errors the PD controller will behave correctly, but it will be off dependent upon the error. In the chart below it follows the reference line, but it is off by roughly 0.5. With the PID controller it corrects for the error and follows the reference line.
 
-![png](/images/PID/Controller_Examples_with_bias_example.png)
+![png](/images/PID/Controller_Examples_with_bias_example.PNG)
 
 ```c++
 // PID controller
