@@ -10,7 +10,7 @@
 
 Word trees are graphs that allow you to start at a root word and follow the branches to see what words follow or precede the root word. This allows you to identify common phrases and all the little variations in sentences. As shown below you can see everything Biden said after tweeting "i want to". You can also see how many times a phrase was used.
 
-![png](/images/Word Trees/example_word_tree_biden.PNG)
+![png](/images/Word Trees/example_word_tree_biden.png)
 
 
 ## Code Provided
@@ -34,7 +34,7 @@ It will read csv or xlsx files using pandas and then prepare the text columns fo
 
 The current template includes the total number of text responses at the top left. Just below that is a text box for changing the root word, and in the middle is the chart. Below the word tree are the top trigrams in the text for inspiration so you can have ideas for things to look for. Above all of this at the top (not shown) you can switch between suffix, prefix, and double word tree options.
 
-![png](/images/Word Trees/double tree.PNG)
+![png](/images/Word Trees/double tree.png)
 
 ## Data Set Used
 
@@ -46,7 +46,7 @@ Google Chrome has a max of 4 gigabytes memory for each tab that is open. When wo
 
 Here is the distribution of sample lengths between the two datasets referenced above.
 
-![png](/images/Word Trees/length_of_text.PNG)
+![png](/images/Word Trees/length_of_text.png)
 
 One other thing. I haven't implemented different kinds of filters. At the moment if you supply a list of filter columns the date columns will cause it to fail. Also numeric columns will be treated as categorical so it won't behave as you'd probably want. I plan to come back to this and fix it later.
 
