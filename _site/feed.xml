@@ -1,6 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-10T10:56:46-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Chris Durrans</title><subtitle>Data Scientist, life long learner, and want to be roboticist. I'm particularly interested reinforcement learning and control.</subtitle><entry><title type="html">Pid Controllers</title><link href="http://localhost:4000/2020/07/25/PID-Controllers.html" rel="alternate" type="text/html" title="Pid Controllers" /><published>2020-07-25T00:00:00-06:00</published><updated>2020-07-25T00:00:00-06:00</updated><id>http://localhost:4000/2020/07/25/PID-Controllers</id><content type="html" xml:base="http://localhost:4000/2020/07/25/PID-Controllers.html">&lt;h4 id=&quot;in-this-blog-post-i-want-to-share-some-of-my-experiences-with-controllers-and-their-applications-my-first-introduction-to-pid-controllers-was-in-udacitys-self-driving-car-nanodegree-where-we-learned-to-control-the-cars-steering-wheel-and-speed&quot;&gt;In this blog post, I want to share some of my experiences with Controllers and their applications. My first introduction to PID controllers was in Udacity’s Self Driving Car Nanodegree where we learned to control the car’s steering wheel and speed.&lt;/h4&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-27T13:35:40-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Chris Durrans</title><subtitle>Data Scientist, life long learner, and roboticist. I'm particularly interested reinforcement learning and control.</subtitle><entry><title type="html">Word Trees</title><link href="http://localhost:4000/2020/10/22/Word-Trees.html" rel="alternate" type="text/html" title="Word Trees" /><published>2020-10-22T00:00:00-06:00</published><updated>2020-10-22T00:00:00-06:00</updated><id>http://localhost:4000/2020/10/22/Word-Trees</id><content type="html" xml:base="http://localhost:4000/2020/10/22/Word-Trees.html">&lt;h4 id=&quot;at-work-i-do-a-lot-of-natural-language-processing-and-exploring-large-text-datasets-can-be-a-bit-of-a-challenge-one-of-my-favorite-ways-to-visualize-text-is-by-using-word-trees-follow-along-to-see-an-easy-to-create-example-of-a-word-tree&quot;&gt;At work I do a lot of natural language processing and exploring large text datasets can be a bit of a challenge. One of my favorite ways to visualize text is by using word trees. Follow along to see an easy to create example of a word tree.&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/PID vs Behavioral Cloning/simulator.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;word-trees&quot;&gt;Word Trees&lt;/h2&gt;
+
+&lt;p&gt;Word trees are graphs that allow you to start at a root word and follow the branches to see what words follow or precede the root word. This allows you to identify common phrases and all the little variations in sentences. As shown below you can see everything Biden said after tweeting “i want to”. You can also see how many times a phrase was used.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/Word Trees/example_word_tree_biden.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;code-provided&quot;&gt;Code Provided&lt;/h2&gt;
+
+&lt;p&gt;If you want to skip straight to the code go here &lt;a href=&quot;https://github.com/cdurrans/word-tree-template&quot;&gt;https://github.com/cdurrans/word-tree-template&lt;/a&gt;. At the moment you’ll need python installed but I might make a executable program of this.&lt;/p&gt;
+
+&lt;p&gt;Once you clone the GitHub repository, you’ll need to run the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;../repository/cloned/location/createWordTree.py&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;templateFolder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;../repository/cloned/location/template/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;../location/of/data.xlsx or csv&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Data Column Of Interest&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Comma,seperated,list,of,filters,wanted.&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveDirectory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;../folder/you/want/created&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;code-explanation&quot;&gt;Code Explanation&lt;/h2&gt;
+
+&lt;p&gt;The code makes a copy of the template downloaded from my GitHub and then processes the data supplied.&lt;/p&gt;
+
+&lt;p&gt;It will read csv or xlsx files using pandas and then prepare the text columns for consumption by the JavaScript word tree code. The word tree code is generated using Google’s &lt;a href=&quot;https://developers.google.com/chart&quot;&gt;https://developers.google.com/chart&lt;/a&gt; code which currently has its word trees in development. So I expect to have to change the code on my template in the future.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-included&quot;&gt;What is Included&lt;/h2&gt;
+
+&lt;p&gt;The current template includes the total number of text responses at the top left. Just below that is a text box for changing the root word, and in the middle is the chart. Below the word tree are the top trigrams in the text for inspiration so you can have ideas for things to look for. Above all of this at the top (not shown) you can switch between suffix, prefix, and double word tree options.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/Word Trees/double tree.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;data-set-used&quot;&gt;Data Set Used&lt;/h2&gt;
+
+&lt;p&gt;While exploring what text datasets to use other than work ones, I decided to use Joe Biden Tweets from 2018 till late 2020. The data can be found here on Kaggle: &lt;a href=&quot;https://www.kaggle.com/rohanrao/joe-biden-tweets&quot;&gt;https://www.kaggle.com/rohanrao/joe-biden-tweets&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;limitations&quot;&gt;Limitations&lt;/h2&gt;
+
+&lt;p&gt;Google Chrome has a max of 4 gigabytes memory for each tab that is open. When working with lots of text samples you can easily reach this limit while using this visualization. This is because the JavaScript code will use more memory if the text samples are longer. While exploring some real estate home descriptions, I found that I had two datasets with comparable file sizes, but one had long texts while the other had a lot of short ones. The short answer word tree did just fine while the longer text dataset crashed the application with a max memory error. So, if you have long text responses consider breaking it up by sentence or consider taking a sample of your dataset. I hope google works on this issue with their code, because sometimes you can’t have very many text records, but considering I didn’t have to make it I shouldn’t complain too much.&lt;/p&gt;
+
+&lt;p&gt;Here is the distribution of sample lengths between the two datasets referenced above.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/Word Trees/length_of_text.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;One other thing. I haven’t implemented different kinds of filters. At the moment if you supply a list of filter columns the date columns will cause it to fail. Also numeric columns will be treated as categorical so it won’t behave as you’d probably want. I plan to come back to this and fix it later.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I love word trees and I hope you find this template useful. I find it is handy for quickly getting a word tree up and going with little effort.&lt;/p&gt;</content><author><name></name></author><summary type="html">At work I do a lot of natural language processing and exploring large text datasets can be a bit of a challenge. One of my favorite ways to visualize text is by using word trees. Follow along to see an easy to create example of a word tree.</summary></entry><entry><title type="html">Pid Controllers</title><link href="http://localhost:4000/2020/07/25/PID-Controllers.html" rel="alternate" type="text/html" title="Pid Controllers" /><published>2020-07-25T00:00:00-06:00</published><updated>2020-07-25T00:00:00-06:00</updated><id>http://localhost:4000/2020/07/25/PID-Controllers</id><content type="html" xml:base="http://localhost:4000/2020/07/25/PID-Controllers.html">&lt;h4 id=&quot;in-this-blog-post-i-want-to-share-some-of-my-experiences-with-controllers-and-their-applications-my-first-introduction-to-pid-controllers-was-in-udacitys-self-driving-car-nanodegree-where-we-learned-to-control-the-cars-steering-wheel-and-speed&quot;&gt;In this blog post, I want to share some of my experiences with Controllers and their applications. My first introduction to PID controllers was in Udacity’s Self Driving Car Nanodegree where we learned to control the car’s steering wheel and speed.&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/PID vs Behavioral Cloning/simulator.PNG&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;!-- [image1]: ./images/PID/steadyPatternImprovement.png &quot;Steady Progress&quot;
+[image_p]: ./images/PID/p_controller_tau_0.1.png &quot;P controller example&quot;
+[image_pm]: ./images/PID/p_controller_multi_tau.png &quot;P controller multiple tau&quot;
+[image_p_pd]: ./images/PID/P_PD_example.png &quot;P and PD controller&quot;
+[image_compare]: ./images/PID/Controller_Examples_with_bias_example.png &quot;Controller comparison&quot;
+[video1]: ./images/PID/project_video.mp4 &quot;Video&quot; --&gt;
 
 &lt;h3 id=&quot;controllers-and-the-control-loop&quot;&gt;Controllers and the Control Loop&lt;/h3&gt;
 
@@ -12,11 +64,11 @@
 
 &lt;p&gt;Continuing with the car’s speed, the proportional part changes the speed in proportion to the difference between the goal and current speed. So when the car is going 50 mph slower than the goal speed the car will accelerate faster than it would if it was going 5 mph under. This makes intuitive sense, and one would be tempted to call it good enough, but the car will reach a point where it oscilates around the goal. See the image below.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/PID/p_controller_tau_0.1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/PID/p_controller_tau_0.1.PNG&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Image shows difference from goal. In the case of speed this 1 +/- mph difference around goal doesn’t seem like a big deal, but minimizing this oscilation can be very important in other applications. One way to minimize it is with tuning because the distance from the goal or error is multiplied by a supplied value called tau. See in the above image how tau was set to 0.1? Below are some examples of how adjusting tau changes the behavior.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/PID/p_controller_multi_tau.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/PID/p_controller_multi_tau.PNG&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you can see, as tau gets smaller the controller adjusts its speed much more slowly which causes the longer oscilations.&lt;/p&gt;
 
@@ -31,7 +83,7 @@
 
 &lt;p&gt;To further improve the controller we will implement the other parts of the PID controller. We will skip the Integral portion for now, so the derivative part of the equation takes the derivative of the car’s speed and subtracts it from the proportional value. This works to smooth the oscillations until the point where the car aligns itself with the goal.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/PID/P_PD_example.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/PID/P_PD_example.PNG&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// PD controller&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// Kp = p tau &lt;/span&gt;
@@ -47,7 +99,7 @@
 
 &lt;p&gt;The integral part of the controller takes all of the errors over each time step and sums them up to calculate the integral of the function. So as the device has mistakes in its measurements the accumulating error will cause the controller to correct itself. Below we have a comparison of a PD controller and a PID controller. When the controller has systematic errors the PD controller will behave correctly, but it will be off dependent upon the error. In the chart below it follows the reference line, but it is off by roughly 0.5. With the PID controller it corrects for the error and follows the reference line.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/PID/Controller_Examples_with_bias_example.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/PID/Controller_Examples_with_bias_example.PNG&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// PID controller&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// Kp = p tau &lt;/span&gt;
@@ -91,7 +143,7 @@ I'm sure I can make the car drive smoother with further trial and error and some
 &lt;video width=&quot;800&quot; height=&quot;550&quot; controls=&quot;&quot;&gt;
   &lt;source src=&quot;https://media.githubusercontent.com/media/cdurrans/cdurrans.github.io/master/images/PID/final_run_around.mp4&quot; type=&quot;video/mp4&quot; /&gt;
   &lt;!-- https://github.com/cdurrans/cdurrans.github.io/tree/master/images/Histogram%20Segments --&gt;
-&lt;/video&gt;</content><author><name></name></author><summary type="html">In this blog post, I want to share some of my experiences with Controllers and their applications. My first introduction to PID controllers was in Udacity’s Self Driving Car Nanodegree where we learned to control the car’s steering wheel and speed.</summary></entry><entry><title type="html">Using histograms to segment images</title><link href="http://localhost:4000/2020/05/05/Using-Histograms-to-Segment-Images.html" rel="alternate" type="text/html" title="Using histograms to segment images" /><published>2020-05-05T00:00:00-06:00</published><updated>2020-05-05T00:00:00-06:00</updated><id>http://localhost:4000/2020/05/05/Using%20Histograms%20to%20Segment%20Images</id><content type="html" xml:base="http://localhost:4000/2020/05/05/Using-Histograms-to-Segment-Images.html">&lt;h1 id=&quot;using-histograms-to-segment-images&quot;&gt;Using Histograms to Segment Images&lt;/h1&gt;
+&lt;/video&gt;</content><author><name></name></author><summary type="html">In this blog post, I want to share some of my experiences with Controllers and their applications. My first introduction to PID controllers was in Udacity’s Self Driving Car Nanodegree where we learned to control the car’s steering wheel and speed. [video1]: ./images/PID/project_video.mp4 “Video” –&amp;gt;</summary></entry><entry><title type="html">Using histograms to segment images</title><link href="http://localhost:4000/2020/05/05/Using-Histograms-to-Segment-Images.html" rel="alternate" type="text/html" title="Using histograms to segment images" /><published>2020-05-05T00:00:00-06:00</published><updated>2020-05-05T00:00:00-06:00</updated><id>http://localhost:4000/2020/05/05/Using%20Histograms%20to%20Segment%20Images</id><content type="html" xml:base="http://localhost:4000/2020/05/05/Using-Histograms-to-Segment-Images.html">&lt;h1 id=&quot;using-histograms-to-segment-images&quot;&gt;Using Histograms to Segment Images&lt;/h1&gt;
 
 &lt;p&gt;Sometimes it is necessary to seperate an image into segments before running the pieces through optical character recognition. When a document has multiple columns with rows of uneven length it can be a challenge to appropriately attribute one section of the document to one attribute or category.&lt;/p&gt;
 
@@ -982,8 +1034,8 @@ Wall time: 1min 32s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;video width=&quot;960&quot; height=&quot;540&quot; controls=&quot;&quot;&gt;
-  &lt;source src=&quot;/images/AdvancedLanes/project_video_onlyDebug.mp4&quot; /&gt;
+  &lt;source src=&quot;https://media.githubusercontent.com/media/cdurrans/cdurrans.github.io/master/images/AdvancedLanes/project_video_onlyDebug.mp4&quot; /&gt;
 &lt;/video&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;The pipeline above does a good job of following the road when the lines are well marked and the road is darker. I would need to tune the values more and potentially use other feature detectors to improve the pipeline for more challenging sections of road. Also in harder videos I’ve tested my current code focuses too far out and looks only straight ahead for lane lines. When the road curves sharply it doesn’t work well at all. In order to address this I could change the perspective transform to shift as the road turns, but I’m hesitant. I think shortening the length in which it looks ahead could help. I’ll leave that for a later date or for the reader to try.&lt;/p&gt;</content><author><name></name></author><summary type="html">This project is part of Udacity’s self driving car program and the goal is to find lanes on the road and determine car’s position in the lane. For this project I’ll only analyze data coming from one camera centered on the dashboard.</summary></entry></feed>
+&lt;p&gt;The pipeline above does a good job of following the road when the lines are well marked and the road is darker. I would need to tune the values more and potentially use other feature detectors to improve the pipeline for more challenging sections of road. Also in harder videos I’ve tested my current code focuses too far out and looks only straight ahead for lane lines. When the road curves sharply it doesn’t work well at all. In order to address this I could change the perspective transform to shift as the road turns, but I’m hesitant. I think shortening the length in which it looks ahead could help. I’ll leave that for a later date or for the reader to try.&lt;/p&gt;</content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html">This project is part of Udacity’s self driving car program and the goal is to find lanes on the road and determine car’s position in the lane. For this project I’ll only analyze data coming from one camera centered on the dashboard.</summary></entry></feed>
