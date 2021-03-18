@@ -1,14 +1,8 @@
 import numpy as np 
 import networkx as nx
 import matplotlib.pyplot as plt
-from random import seed
-from random import randint
 import pydot
 from networkx.drawing.nx_pydot import graphviz_layout
-
-# seed random number generator
-seed(1)
-
 
 class Node:
     def __init__(self, id, point):
@@ -23,6 +17,8 @@ class KdTree:
         self.root = None 
         self.G = nx.Graph()
         self.label_dict = dict()
+        self.ids_set = set()
+        self.sorted_ids = dict()
     #
     def insertHelper(self, node, point, id, depth):
         if node == None:
@@ -40,12 +36,44 @@ class KdTree:
                 node.right_node = self.insertHelper(node.right_node, point, id, depth+1)
                 self.G.add_edge(node.id, node.right_node.id)
         self.label_dict[id] = str(point)
-        # self.plot_tree()
+        # self.plotTree()
         return node
     #
     def insert(self, point, id):
+        if id in self.ids_set:
+            raise ValueError(f"Point with id value: {id} already in tree.")
+        self.ids_set.add(id)
         self.root = self.insertHelper(self.root, point, id, 0)
     #
+    def sortPoints(self, points_with_ids):
+        """
+        points_with_ids expects a dictionary with ids as the keys and points as the items
+        """
+        self.sorted_ids = dict()
+        temp_key = list(points_with_ids.keys())[0]
+        for idx in range(len(points_with_ids[temp_key])):
+            print(points_with_ids[temp_key]," ", idx)
+            print(points_with_ids.items())
+            sorted_points = sorted(points_with_ids.items(), key=lambda x: x[1][idx])
+            sorted_ids = []
+            for point_tuple in sorted_points:
+                sorted_ids.append(point_tuple[0])
+            self.sorted_ids[idx] = sorted_ids
+
+    def insertPoints(self, points, ids):
+        assert len(points) == len(ids)
+        points_with_ids = dict(zip(ids, points))
+        self.sortPoints(points_with_ids)
+        n = len(points)
+        current_depth = 0
+        while n:
+            pt_id = self.sorted_ids[current_depth].pop(n//2)
+            for key in self.sorted_ids.keys():
+                self.sorted_ids[key].remove(pt_id)
+            self.insertHelper(self.root, points_with_ids[pt_id], pt_id, 0)
+            current_depth = (current_depth + 1) % len(points_with_ids[pt_id])
+            n -= 1
+
     def searchHelper(self, target, node, depth, distance_tolerance, ids):
         if node:
             point_np = np.array(node.point)
@@ -91,7 +119,7 @@ class KdTree:
                     next_level.append(n.right_node)
             current_level = next_level
     #
-    def plot_tree(self):
+    def plotTree(self):
         pos = graphviz_layout(self.G, prog="dot")
         nx.draw(self.G, pos, labels=self.label_dict, with_labels=True)
         plt.show()
