@@ -20,7 +20,7 @@ class KdTree:
         self.ids_set = set()
         self.sorted_ids = dict()
     #
-    def insertHelper(self, node, point, id, depth):
+    def __insertHelper(self, node, point, id, depth):
         if node == None:
             node = Node(id, point)
         else:
@@ -30,10 +30,10 @@ class KdTree:
             if point[current_depth] < node.point[current_depth]:
                 left = True
             if left:
-                node.left_node = self.insertHelper(node.left_node, point, id, depth+1)
+                node.left_node = self.__insertHelper(node.left_node, point, id, depth+1)
                 self.G.add_edge(node.id, node.left_node.id)
             else:
-                node.right_node = self.insertHelper(node.right_node, point, id, depth+1)
+                node.right_node = self.__insertHelper(node.right_node, point, id, depth+1)
                 self.G.add_edge(node.id, node.right_node.id)
         self.label_dict[id] = str(point)
         # self.plotTree()
@@ -43,9 +43,9 @@ class KdTree:
         if id in self.ids_set:
             raise ValueError(f"Point with id value: {id} already in tree.")
         self.ids_set.add(id)
-        self.root = self.insertHelper(self.root, point, id, 0)
+        self.root = self.__insertHelper(self.root, point, id, 0)
     #
-    def sortPoints(self, points_with_ids):
+    def __sortPoints(self, points_with_ids):
         """
         points_with_ids expects a dictionary with ids as the keys and points as the items
         """
@@ -61,7 +61,7 @@ class KdTree:
     def insertPoints(self, points, ids):
         assert len(points) == len(ids)
         points_with_ids = dict(zip(ids, points))
-        self.sortPoints(points_with_ids)
+        self.__sortPoints(points_with_ids)
         n = len(points)
         current_depth = 0
         while n:
@@ -74,15 +74,17 @@ class KdTree:
             current_depth = (current_depth + 1) % len(points_with_ids[pt_id])
             n -= 1
 
-    def searchHelper(self, target, node, depth, distance_tolerance, ids):
+    def __searchHelper(self, target, node, depth, distance_tolerance, ids):
         if node:
             point_np = np.array(node.point)
             target_np = np.array(target)
             deltas = point_np - target_np
+            # print(f"Deltas: {deltas}\nDistance Tolerance:{distance_tolerance}")
             distance_delta_ok = True
             for d in deltas:
                 if abs(d) >= distance_tolerance:
                     distance_delta_ok = False
+                    # print(f"distance delta not ok: {abs(d)} >= {distance_tolerance}")
                     break
             #
             if distance_delta_ok:
@@ -91,18 +93,21 @@ class KdTree:
                     distance = distance + (d * d)
                 distance = np.sqrt(distance)
                 #
+                # print(f"Distance: {distance}")
                 if distance <= distance_tolerance:
                     ids.append(node.id)
             #
             current_depth = depth % len(target)
             if (target[current_depth] - distance_tolerance) < node.point[current_depth]:
-                self.searchHelper(target, node.left_node, depth+1, distance_tolerance, ids)
+                ids = self.__searchHelper(target, node.left_node, depth+1, distance_tolerance, ids)
             if (target[current_depth] + distance_tolerance) > node.point[current_depth]:
-                self.searchHelper(target, node.right_node, depth+1, distance_tolerance, ids)
+                ids = self.__searchHelper(target, node.right_node, depth+1, distance_tolerance, ids)
+        return ids
     #
-    def search(target, distance_tolerance):
+    def search(self, target, distance_tolerance):
         ids = []
-        ids = self.searchHelper(target, self.root, 0, distance_tolerance, ids)
+        ids = self.__searchHelper(target, self.root, 0, distance_tolerance, ids)
+        # print(f"Ids: {ids}")
         return ids
     #   
     def traverse(self):
