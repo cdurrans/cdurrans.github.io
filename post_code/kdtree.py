@@ -52,8 +52,6 @@ class KdTree:
         self.sorted_ids = dict()
         temp_key = list(points_with_ids.keys())[0]
         for idx in range(len(points_with_ids[temp_key])):
-            print(points_with_ids[temp_key]," ", idx)
-            print(points_with_ids.items())
             sorted_points = sorted(points_with_ids.items(), key=lambda x: x[1][idx])
             sorted_ids = []
             for point_tuple in sorted_points:
@@ -69,8 +67,10 @@ class KdTree:
         while n:
             pt_id = self.sorted_ids[current_depth].pop(n//2)
             for key in self.sorted_ids.keys():
+                if key == current_depth:
+                    continue
                 self.sorted_ids[key].remove(pt_id)
-            self.insertHelper(self.root, points_with_ids[pt_id], pt_id, 0)
+            self.insert(points_with_ids[pt_id], pt_id)
             current_depth = (current_depth + 1) % len(points_with_ids[pt_id])
             n -= 1
 
@@ -112,10 +112,8 @@ class KdTree:
             next_level = list()
             for n in current_level:
                 if n.left_node:
-                    # self.G.add_edge(n.id, n.left_node.id)
                     next_level.append(n.left_node)
                 if n.right_node:
-                    # self.G.add_edge(n.id, n.right_node.id)
                     next_level.append(n.right_node)
             current_level = next_level
     #
@@ -123,7 +121,6 @@ class KdTree:
         pos = graphviz_layout(self.G, prog="dot")
         nx.draw(self.G, pos, labels=self.label_dict, with_labels=True)
         plt.show()
-
 
 
 
