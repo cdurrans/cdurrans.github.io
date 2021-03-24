@@ -9,20 +9,23 @@ import matplotlib.pyplot as plt
 from random import seed
 from random import randint
 
-seed(1)
+seed(2)
 myTree = kdtree.KdTree()
+myTree.enable_saving_imgs()
+myTree.set_saving_images_folder("C:/Files/images_kdtree/")
 pts = []
-for id in range(0,45):
+n_pts = 10
+for id in range(0,n_pts):
     pt = (randint(0, 10), randint(0, 10),randint(0, 10))
     pts.append(pt)
     # myTree.insert(pt, id)
 
-ids = [id for id in range(0,45)]
+ids = [id for id in range(0,n_pts)]
 
 myTree.insertPoints(pts,ids)
 
 # myTree.traverse()
-# myTree.plotTree()
+myTree.plotTree()
 
 pts_np = np.array(pts)
 
@@ -46,61 +49,68 @@ result = myTree.search(search_pt, distance_tolerance)
 
 print("Nearby points: ",result)
 
-# plot_pts = np.vstack((pts_np,search_pt))
+plot_pts = np.vstack((pts_np,search_pt))
 
-# color_type = list()
-# for x in range(len(plot_pts)-1):
-#     if x in result:
-#         color_type.append("lightgreen")
-#     else:
-#         color_type.append("lightblue")
-# #
+color_type = list()
+for x in range(len(plot_pts)-1):
+    if x in result:
+        color_type.append("lightgreen")
+    else:
+        color_type.append("lightblue")
+#
 
-# color_type.append("orange")
+color_type.append("orange")
 
-# fig = go.Figure(data=[go.Scatter3d(
-#                 x=plot_pts[:,0],
-#                 y=plot_pts[:,1],
-#                 z=plot_pts[:,2],
-#                 mode='markers',
-#                 marker=dict(
-#                     color=color_type
-#                 ),
-#         hovertext=ids
-#         # ,hoverinfo='text'
-#         )])
-# fig.show()
-
-
-from clustering import Cluster
-
-myCluster = Cluster()
-myCluster.load(pts)
-myCluster.cluster(3)
-
-myCluster.found_clusters
-
-
-clusters_joined = list()
-clusters_colors = list()
-
-for cluster in myCluster.found_clusters:
-    rgb = (randint(0, 255), randint(0, 255),randint(0, 255))
-    for pt in cluster:
-        clusters_joined.append(pt)
-        clusters_colors.append(rgb)
-
-
-clusters_joined = np.array(clusters_joined)
 fig = go.Figure(data=[go.Scatter3d(
-                x=clusters_joined[:,0],
-                y=clusters_joined[:,1],
-                z=clusters_joined[:,2],
+                x=plot_pts[:,0],
+                y=plot_pts[:,1],
+                z=plot_pts[:,2],
                 mode='markers',
                 marker=dict(
-                    color=clusters_colors
+                    color=color_type
                 ),
         hovertext=ids
         # ,hoverinfo='text'
         )])
 fig.show()
+
+
+from clustering import Cluster
+import pandas as pd
+# myCluster = Cluster()
+# myCluster.load(pts)
+# myCluster.cluster(3)
+
+# myCluster.plot_3d()
+fsname = "C:/Users/cdurrans/Downloads/536069_reports (1)/blog.csv"
+df = pd.read_csv(fsname)
+pts = list(df.to_records(index=False))
+
+test_ = []
+for p in pts:
+    test_.append(tuple(p))
+
+
+myCluster = Cluster()
+myCluster.load(pts)
+myCluster.cluster(600)
+
+myCluster.plot_3d()
+
+myTree = kdtree.KdTree()
+
+ids = [x for x in range(len(test_))]
+
+myTree.insertPoints(test_, ids)
+
+# import glob
+# from PIL import Image
+
+# # filepaths
+# fp_in = "/path/to/image_*.png"
+# fp_out = "/path/to/image.gif"
+
+# # https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
+# img, *imgs = [Image.open(f) for f in sorted(glob.glob(fp_in))]
+# img.save(fp=fp_out, format='GIF', append_images=imgs,
+#          save_all=True, duration=200, loop=0)

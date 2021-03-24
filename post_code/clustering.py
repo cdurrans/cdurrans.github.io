@@ -1,4 +1,8 @@
 import kdtree
+import plotly.graph_objects as go
+import numpy as np 
+import matplotlib.pyplot as plt
+from random import randint
 
 class Cluster:
     def __init__(self):
@@ -35,3 +39,39 @@ class Cluster:
             if not self.processed[id]:
                 cluster = self.__clusterHelper(id, cluster, tree, distance_tolerance)
         return cluster
+    
+    def plot_3d(self):
+        clusters_joined = list()
+        clusters_colors = list()
+
+        for cluster in self.found_clusters:
+            rgb = (randint(0, 255), randint(0, 255),randint(0, 255))
+            for pt in cluster:
+                clusters_joined.append(pt)
+                clusters_colors.append(rgb)
+
+        clusters_joined = np.array(clusters_joined)
+        dim_of_pts = (len(self.points[0]))
+        try:
+            xdata = clusters_joined[:,0]
+            ydata = clusters_joined[:,1]
+            zdata = clusters_joined[:,2]
+        except Exception as ex:
+            print(ex)
+            clusters_joined = clusters_joined.view((clusters_joined.dtype[0], len(clusters_joined.dtype.names)))
+            xdata = clusters_joined[:,0]
+            ydata = clusters_joined[:,1]
+            zdata = clusters_joined[:,2]
+
+        fig = go.Figure(data=[go.Scatter3d(
+                        x=xdata,
+                        y=ydata,
+                        z=zdata,
+                        mode='markers',
+                        marker=dict(
+                            color=clusters_colors
+                        ),
+                hovertext=self.ids
+                # ,hoverinfo='text'
+                )])
+        fig.show()

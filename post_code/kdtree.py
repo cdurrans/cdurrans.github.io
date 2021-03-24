@@ -2,6 +2,7 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 import pydot
+import os
 from networkx.drawing.nx_pydot import graphviz_layout
 
 class Node:
@@ -19,6 +20,9 @@ class KdTree:
         self.label_dict = dict()
         self.ids_set = set()
         self.sorted_ids = dict()
+        self.save_images = False
+        self.save_folder = os.getcwd()
+        self.image_number = 0
     #
     def __insertHelper(self, node, point, id, depth):
         if node == None:
@@ -36,7 +40,6 @@ class KdTree:
                 node.right_node = self.__insertHelper(node.right_node, point, id, depth+1)
                 self.G.add_edge(node.id, node.right_node.id)
         self.label_dict[id] = str(point)
-        # self.plotTree()
         return node
     #
     def insert(self, point, id):
@@ -44,6 +47,9 @@ class KdTree:
             raise ValueError(f"Point with id value: {id} already in tree.")
         self.ids_set.add(id)
         self.root = self.__insertHelper(self.root, point, id, 0)
+        # self.plotTree()
+        if self.save_images:
+            self.__save_image()
     #
     def __sortPoints(self, points_with_ids):
         """
@@ -56,6 +62,7 @@ class KdTree:
             sorted_ids = []
             for point_tuple in sorted_points:
                 sorted_ids.append(point_tuple[0])
+            print(sorted_ids)
             self.sorted_ids[idx] = sorted_ids
 
     def insertPoints(self, points, ids):
@@ -76,8 +83,11 @@ class KdTree:
 
     def __searchHelper(self, target, node, depth, distance_tolerance, ids):
         if node:
-            point_np = np.array(node.point)
-            target_np = np.array(target)
+            point_np = np.array(list(map(float,node.point)))
+            target_np = np.array(list(map(float,target)))
+            # print("point_np: ", point_np, type(point_np))
+            # print("target_np: ", target_np, type(target_np))
+
             deltas = point_np - target_np
             # print(f"Deltas: {deltas}\nDistance Tolerance:{distance_tolerance}")
             distance_delta_ok = True
@@ -126,6 +136,23 @@ class KdTree:
         pos = graphviz_layout(self.G, prog="dot")
         nx.draw(self.G, pos, labels=self.label_dict, with_labels=True)
         plt.show()
+    #
+    def enable_saving_imgs(self):
+        self.save_images = True
+    #
+    def disable_saving_images(self):
+        self.save_images = False
+    #
+    def set_saving_images_folder(self, file_directory):
+        self.save_folder = file_directory
+    #
+    def __save_image(self):
+        pos = graphviz_layout(self.G, prog="dot")
+        nx.draw(self.G, pos, 
+        labels=self.label_dict,
+         with_labels=True)
+        plt.savefig(os.path.join(self.save_folder,f"tree_img_{self.image_number}.png"))
+        self.image_number += 1
 
 
 
