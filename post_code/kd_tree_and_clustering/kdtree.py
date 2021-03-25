@@ -12,7 +12,6 @@ class Node:
         self.left_node = None
         self.right_node = None
 
-
 class KdTree:
     def __init__(self):
         self.root = None 
@@ -30,7 +29,6 @@ class KdTree:
         else:
             current_depth = depth % len(point)
             left = False
-            # print(f"Id: {id}\nPoint: {point}\nNode.point: {node.point}\nCurrent Depth: {current_depth}")
             if point[current_depth] < node.point[current_depth]:
                 left = True
             if left:
@@ -39,7 +37,6 @@ class KdTree:
             else:
                 node.right_node = self.__insertHelper(node.right_node, point, id, depth+1)
                 self.G.add_edge(node.id, node.right_node.id)
-        self.label_dict[id] = str(point)
         return node
     #
     def insert(self, point, id):
@@ -48,8 +45,9 @@ class KdTree:
         self.ids_set.add(id)
         self.root = self.__insertHelper(self.root, point, id, 0)
         # self.plotTree()
-        if self.save_images:
-            self.__save_image()
+        self.label_dict[id] = str(point)
+        # if self.save_images:
+        #     self.__save_image()
     #
     def __sortPoints(self, points_with_ids):
         """
@@ -62,7 +60,6 @@ class KdTree:
             sorted_ids = []
             for point_tuple in sorted_points:
                 sorted_ids.append(point_tuple[0])
-            print(sorted_ids)
             self.sorted_ids[idx] = sorted_ids
 
     def insertPoints(self, points, ids):
@@ -85,16 +82,11 @@ class KdTree:
         if node:
             point_np = np.array(list(map(float,node.point)))
             target_np = np.array(list(map(float,target)))
-            # print("point_np: ", point_np, type(point_np))
-            # print("target_np: ", target_np, type(target_np))
-
             deltas = point_np - target_np
-            # print(f"Deltas: {deltas}\nDistance Tolerance:{distance_tolerance}")
             distance_delta_ok = True
             for d in deltas:
                 if abs(d) >= distance_tolerance:
                     distance_delta_ok = False
-                    # print(f"distance delta not ok: {abs(d)} >= {distance_tolerance}")
                     break
             #
             if distance_delta_ok:
@@ -102,8 +94,6 @@ class KdTree:
                 for d in deltas:
                     distance = distance + (d * d)
                 distance = np.sqrt(distance)
-                #
-                # print(f"Distance: {distance}")
                 if distance <= distance_tolerance:
                     ids.append(node.id)
             #
@@ -117,25 +107,30 @@ class KdTree:
     def search(self, target, distance_tolerance):
         ids = []
         ids = self.__searchHelper(target, self.root, 0, distance_tolerance, ids)
-        # print(f"Ids: {ids}")
         return ids
     #   
-    def traverse(self):
+    def get_points(self):
+        all_points = [self.root.point]
         current_level = [self.root]
         while current_level:
-            # print(' '.join(str(node.id) for node in current_level))
             next_level = list()
             for n in current_level:
                 if n.left_node:
                     next_level.append(n.left_node)
+                    all_points.append(n.left_node.point)
                 if n.right_node:
                     next_level.append(n.right_node)
+                    all_points.append(n.right_node.point)
             current_level = next_level
+        return all_points
     #
     def plotTree(self):
-        pos = graphviz_layout(self.G, prog="dot")
-        nx.draw(self.G, pos, labels=self.label_dict, with_labels=True)
-        plt.show()
+        try:
+            pos = graphviz_layout(self.G, prog="dot")
+            nx.draw(self.G, pos, labels=self.label_dict, with_labels=True)
+            plt.show()
+        except Exception as ex:
+            print(ex)
     #
     def enable_saving_imgs(self):
         self.save_images = True
@@ -147,12 +142,16 @@ class KdTree:
         self.save_folder = file_directory
     #
     def __save_image(self):
-        pos = graphviz_layout(self.G, prog="dot")
-        nx.draw(self.G, pos, 
-        labels=self.label_dict,
-         with_labels=True)
-        plt.savefig(os.path.join(self.save_folder,f"tree_img_{self.image_number}.png"))
-        self.image_number += 1
+        try:
+            pos = graphviz_layout(self.G, prog="dot")
+            nx.draw(self.G, pos, 
+            labels=self.label_dict,
+            with_labels=True)
+            plt.savefig(os.path.join(self.save_folder,f"tree_img_{self.image_number}.png"))
+            self.image_number += 1
+        except Exception as ex:
+            print(ex)
+
 
 
 
