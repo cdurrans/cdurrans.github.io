@@ -1,15 +1,15 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from dataclasses import dataclass
+import dataclasses
 import kdtree
 
 class KdTreePlotter:
     def __init__(self, tree):
         self.iteration = 0
-        self.fig, self.ax = plt.subplots(1)
         self.tree = tree
         self.pts = self.pts = np.array(self.tree.get_points())
-        self.plot = None
+        self.plot_data = []
     
     @dataclass
     class Window:
@@ -20,16 +20,16 @@ class KdTreePlotter:
         
     def __plot_2dTree(self, node, window, depth):
         if node:
-            upper_window = window
-            lower_window = window
+            upper_window = dataclasses.replace(window)
+            lower_window = dataclasses.replace(window)
             if depth % 2 == 0:
                 x_pt = node.point[0]
-                plt.plot([x_pt, x_pt],[window.y_min, window.y_max])
+                self.plot_data.append(([x_pt, x_pt],[window.y_min, window.y_max]))
                 lower_window.x_max = x_pt
                 upper_window.x_min = x_pt
             else:
                 y_pt = node.point[1]
-                plt.plot([window.x_min, window.x_max],[y_pt, y_pt])
+                self.plot_data.append(([window.x_min, window.x_max],[y_pt, y_pt]))
                 lower_window.y_max = y_pt
                 upper_window.y_min = y_pt
             self.__plot_2dTree(node.left_node, lower_window, depth+1)
@@ -47,31 +47,16 @@ class KdTreePlotter:
         assert len(self.tree.root.point) == 2,f"Must be a 2d tree, not a {len(self.tree.root.point)} one"
         window = self.__create_window()
         self.__plot_2dTree(self.tree.root, window, 0)
+        fig, ax = plt.subplots()
         plt.scatter(self.pts[:,0], self.pts[:,1])
+        for plot_line in self.plot_data:
+            # print(plot_line)
+            ax.plot(plot_line[0],plot_line[1])
+            # plt.pause(0.5)
         plt.show()
 
 
 
 
 
-from matplotlib import pyplot as plt
-pts = np.array([
-(8, 7),
-(6, 10),
-(7, 12),
-(2, 8),
-(1, 14),
-(2, 13),
-(4, 13),
-(2, 10),
-(9, 4),
-(5, 4),
-(9, 3)])
 
-myTree = kdtree.KdTree()
-ids = [x for x in range(len(pts))]
-myTree.insertPoints(pts,ids)
-myTree.plotTree()
-
-tree_plt = KdTreePlotter(myTree)
-tree_plt.plot_2dTree()

@@ -98,14 +98,20 @@ myTree.plotTree()
 
 # myCluster.plot_3d()
 
-# # import glob
-# # from PIL import Image
+import glob
+from PIL import Image
 
-# # # filepaths
-# # fp_in = "/path/to/image_*.png"
-# # fp_out = "/path/to/image.gif"
+# filepaths
+fp_in = "C:/Users/cdurrans/Pictures/kdtree/Figure_*.png"
+fp_out = "C:/Users/cdurrans/Pictures/kdtree/image.gif"
 
-# # # https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
-# # img, *imgs = [Image.open(f) for f in sorted(glob.glob(fp_in))]
-# # img.save(fp=fp_out, format='GIF', append_images=imgs,
-# #          save_all=True, duration=200, loop=0)
+# https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
+
+
+files = glob.glob(fp_in)
+files.sort(key=os.path.getmtime, reverse=False)
+img, *imgs = [Image.open(f) for f in files]
+
+
+img.save(fp=fp_out, format='GIF', append_images=imgs,
+         save_all=True, duration=500, loop=0)
