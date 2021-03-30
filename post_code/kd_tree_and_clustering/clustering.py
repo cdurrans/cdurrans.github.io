@@ -75,3 +75,4 @@ class Cluster:
                 # ,hoverinfo='text'
                 )])
         fig.show()
+        return fig
